@@ -337,8 +337,26 @@ Tagify.prototype = {
               break;
 
             case 'Enter':
-             // e.preventDefault();
-            // solves Chrome bug - http://stackoverflow.com/a/20398191/104380
+              e.preventDefault();
+              var selection = window.getSelection(),
+              range = selection.getRangeAt(0),
+              new_line = document.createElement('div');
+              new_line.className ='gd-edit-new_line';
+              new_line.innerHTML = '\n';
+
+              range.deleteContents();
+              range.insertNode(new_line);
+              range.setStartAfter(new_line);
+              range.setEndAfter(new_line);
+              range.collapse(false);
+
+              selection.removeAllRanges();
+              selection.addRange(range);
+                        
+                    
+               
+            
+             
           }
 
           return true;
@@ -1220,17 +1238,19 @@ Tagify.prototype = {
      */
     createListHTML: function createListHTML(list) {
       var getItem = this.settings.dropdown.itemTemplate || function (item) {
-        return "<div class='tagify__dropdown__item " + (item.class ? item.class : "") + "' " + getAttributesString(item) + ">" + (item.value || item) + "</div>";
+        return "<div class='tagify__dropdown__item " + (item.class ? item.class : "") + "' " + getAttributesString(item) + ">" + (item.innerHTML? item.innerHTML : item.value || item) + "</div>";
       }; // for a certain Tag element, add attributes.
-
+      
 
       function getAttributesString(item) {
+        console.log(item);
         var i,
             keys = Object.keys(item),
             s = "";
 
         for (i = keys.length; i--;) {
           var propName = keys[i];
+          if (propName =='innerHTML') continue;
           if (propName != 'class' && !item.hasOwnProperty(propName)) return;
           s += " " + propName + (item[propName] ? "=" + item[propName] : "");
         }
