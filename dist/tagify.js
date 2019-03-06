@@ -352,11 +352,6 @@ Tagify.prototype = {
 
               selection.removeAllRanges();
               selection.addRange(range);
-                        
-                    
-               
-            
-             
           }
 
           return true;
@@ -1243,7 +1238,6 @@ Tagify.prototype = {
       
 
       function getAttributesString(item) {
-        console.log(item);
         var i,
             keys = Object.keys(item),
             s = "";
