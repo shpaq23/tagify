@@ -337,7 +337,7 @@ Tagify.prototype = {
               break;
 
             case 'Enter':
-              e.preventDefault();
+             // e.preventDefault();
             // solves Chrome bug - http://stackoverflow.com/a/20398191/104380
           }
 
@@ -1125,7 +1125,7 @@ Tagify.prototype = {
             case 'ArrowRight':
             case 'Tab':
               e.preventDefault();
-              if (!this.input.autocomplete.set.call(this, selectedElm ? selectedElm.textContent : null)) return false;
+              //if (!this.input.autocomplete.set.call(this, selectedElm ? selectedElm.textContent : null)) return false;
 
             case 'Enter':
               e.preventDefault();
