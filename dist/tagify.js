@@ -71,7 +71,7 @@ Tagify.prototype = {
     // Flag - if true, do not remove tags which did not pass validation
     autoComplete: true,
     // Flag - tries to autocomplete the input's value while typing
-    mixTagsAllowedAfter: /,|\.|\:|\s/,
+    mixTagsAllowedAfter: /,|\.|\|\:|\s/,
     // RegEx - Define conditions in which mix-tags content is allowing a tag to be added after
     backspace: true,
     // false / true / "edit"
@@ -766,15 +766,13 @@ Tagify.prototype = {
   },
   parseMixTags: function parseMixTags(s) {
     var _this6 = this;
-
     // example: "@cartman ,@kyle do not    know:#homer".split(/,|\.|\:|\s/).filter(item => item.match(/@|#/) )
     s.split(this.settings.mixTagsAllowedAfter).filter(function (item) {
       return item.match(_this6.settings.pattern);
     }).forEach(function (tag) {
       var value = tag.replace(_this6.settings.pattern, ''),
           tagData;
-
-      if (_this6.isTagWhitelisted(value) && !_this6.settings.duplicates && _this6.isTagDuplicate(value) == -1) {
+      if (_this6.isTagWhitelisted(value) && !_this6.settings.duplicates) {
         tagData = _this6.normalizeTags.call(_this6, value)[0];
         s = _this6.replaceMixStringWithTag(s, tag, tagData).s;
       }
