@@ -340,10 +340,7 @@ Tagify.prototype = {
               e.preventDefault();
               var selection = window.getSelection(),
               range = selection.getRangeAt(0),
-              new_line = document.createElement('div');
-              new_line.className ='gd-edit-new_line';
-              new_line.setAttribute("contenteditable", false);
-              new_line.innerHTML = '\n';
+              new_line = document.createElement('br');
 
               range.deleteContents();
               range.insertNode(new_line);
